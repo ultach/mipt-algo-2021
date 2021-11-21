@@ -3,7 +3,7 @@
 #include <string>
 #include <algorithm>
 
-
+// Нужно было реализовать используя бор - работает за О(длина текста), а  std::sort - за klogk * (длина самого длинного слова), k - число слов
 std::vector<std::string> getWords(char *s) {
     static const char lastCharInString = '\0';
     static const char delimiter = '.';
