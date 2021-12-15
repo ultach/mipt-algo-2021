@@ -3,7 +3,7 @@
  
 using ll = long long;
  
- 
+ // для полного балла нужно было сделать расширенный алгоритм (за линейное время)
 long long sumOfMinPrimeDivisors(long long n) {
  
     std::vector<int> v(n + 1, 0);
