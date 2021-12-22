@@ -1,35 +1,49 @@
-#include "iostream"
-#include "vector"
- 
-using ll = long long;
- 
- 
-long long sumOfMinPrimeDivisors(long long n) {
- 
-    std::vector<int> v(n + 1, 0);
-    for (ll i = 2; i * i <= n; ++i) {
-        if (v[i] == 0) {
-            for (ll j = i; i * j <= n; ++j) {
-                if (v[i * j] == 0) {
-                    v[i * j] = i;
-                }
+#include <iostream>
+#include <vector>
+
+using std::vector, std::cin, std::cout;
+
+vector<int> sieve(int n) {
+    vector<int> primes;
+
+    vector<int> mind(n);
+    for (int i = 2; i < n; ++i) {
+        mind[i] = i;
+    }
+
+    for (int k = 2; k < n; ++k) {
+        if (mind[k] == k) {
+            primes.push_back(k);
+        }
+        for (auto p: primes) {
+            if (p * k <= n && p <= mind[k]) {
+                mind[p * k] = p;
             }
         }
     }
  
-    ll res = 0;
-    for (auto i: v) {
-        res += i;
+    for (const auto &p: primes) {
+        mind[p] = 0;
     }
- 
+
+    return mind;
+}
+
+int sum(const vector<int> &vec) {
+    int res = 0;
+    for (const auto &item: vec) {
+        res += item;
+    }
     return res;
 }
- 
+
+
 int main() {
     int n;
-    std::cin >> n;
-    std::cout << sumOfMinPrimeDivisors(n);
+    cin >> n;
+
+    const auto mind = sieve(n + 1);
+
+    std::cout << sum(mind) << std::endl;
     return 0;
 }
-
-
